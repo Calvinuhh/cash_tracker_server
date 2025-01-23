@@ -5,7 +5,7 @@ import {
   validateAmountRange,
 } from "../utils/budgetValidations";
 
-export const newBudgetValidation = (
+export const BudgetValidationInputs = (
   req: Request,
   res: Response,
   next: NextFunction
