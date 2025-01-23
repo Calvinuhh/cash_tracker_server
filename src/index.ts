@@ -5,7 +5,7 @@ process.loadEnvFile();
 const { PORT } = process.env;
 
 database
-  .sync({ force: false })
+  .sync({ alter: true })
   .then(() => {
     console.log("Base de datos sincronizada");
     server.listen(PORT, () => {

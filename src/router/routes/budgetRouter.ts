@@ -9,10 +9,18 @@ import {
   deleteBudgetController,
 } from "../../controllers/budgetsController";
 
-budgetRouter.post("/", createBudgetController);
+import { newBudgetValidation } from "../../middlewares/inputsValidations";
+import { validateBudgetById } from "../../middlewares/paramsValidations";
+
+budgetRouter.post("/", newBudgetValidation, createBudgetController);
 budgetRouter.get("/", getAllBudgetsController);
-budgetRouter.get("/:id", getBudgetByIdController);
-budgetRouter.put("/:id", updateBudgetController);
-budgetRouter.delete("/:id", deleteBudgetController);
+budgetRouter.get("/:id", validateBudgetById, getBudgetByIdController);
+budgetRouter.put(
+  "/:id",
+  validateBudgetById,
+  newBudgetValidation,
+  updateBudgetController
+);
+budgetRouter.delete("/:id", validateBudgetById, deleteBudgetController);
 
 export default budgetRouter;
