@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 
-export const validateBudgetById = (
+export const validateBudgetId = (
   req: Request,
   res: Response,
   next: NextFunction

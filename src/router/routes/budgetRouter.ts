@@ -1,6 +1,4 @@
-import { Router, Request, Response } from "express";
-const budgetRouter: Router = Router();
-
+import { Router } from "express";
 import {
   createBudgetController,
   getAllBudgetsController,
@@ -10,17 +8,16 @@ import {
 } from "../../controllers/budgetsController";
 
 import { BudgetValidationInputs } from "../../middlewares/inputsValidations";
-import { validateBudgetById } from "../../middlewares/paramsValidations";
+import { validateBudgetId } from "../../middlewares/paramsValidations";
+
+const budgetRouter: Router = Router();
+
+budgetRouter.param("id", validateBudgetId);
 
 budgetRouter.post("/", BudgetValidationInputs, createBudgetController);
 budgetRouter.get("/", getAllBudgetsController);
-budgetRouter.get("/:id", validateBudgetById, getBudgetByIdController);
-budgetRouter.put(
-  "/:id",
-  validateBudgetById,
-  BudgetValidationInputs,
-  updateBudgetController
-);
-budgetRouter.delete("/:id", validateBudgetById, deleteBudgetController);
+budgetRouter.get("/:id", getBudgetByIdController);
+budgetRouter.put("/:id", BudgetValidationInputs, updateBudgetController);
+budgetRouter.delete("/:id", deleteBudgetController);
 
 export default budgetRouter;
