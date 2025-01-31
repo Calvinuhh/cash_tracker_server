@@ -10,7 +10,7 @@ export const validateLengthFromTo = (
 };
 
 export const validateAmount = (amount: number) => {
-  if (isNaN(Number(amount))) {
+  if (isNaN(amount)) {
     throw Error("El campo amount debe ser un numero");
   }
 };

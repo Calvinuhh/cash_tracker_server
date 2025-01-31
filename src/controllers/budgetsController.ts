@@ -7,11 +7,11 @@ import {
   UpdateBudget,
   deleteBudget,
 } from "../services/budgetsServices";
-import { CreateBudget, UpdateBudgetBody } from "../interfaces&types/Budget";
 
 export const createBudgetController = async (req: Request, res: Response) => {
   try {
-    const { name, amount }: CreateBudget = req.body;
+    const { name, amount } = req.body;
+
     await createBudget({ name, amount });
     res.status(201).json("Presupuesto creado correctamente");
   } catch (error) {
@@ -33,9 +33,9 @@ export const getAllBudgetsController = async (req: Request, res: Response) => {
 
 export const getBudgetByIdController = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params as { id: string };
+    const { budgetId } = req.params as { budgetId: string };
 
-    const budget = await getBudgetById(parseInt(id));
+    const budget = await getBudgetById(parseInt(budgetId));
 
     res.status(200).json(budget);
   } catch (error) {
@@ -46,16 +46,16 @@ export const getBudgetByIdController = async (req: Request, res: Response) => {
 
 export const updateBudgetController = async (req: Request, res: Response) => {
   try {
-    const { name, amount }: UpdateBudgetBody = req.body;
-    const { id } = req.params;
+    const { budgetId } = req.params;
+    const { name, amount } = req.body;
 
-    const updatedBudget = await UpdateBudget({
-      id: Number(id),
+    await UpdateBudget({
+      id: Number(budgetId),
       name,
       amount,
     });
 
-    res.status(200).json(updatedBudget);
+    res.status(200).json("Presupuesto actualizado");
   } catch (error) {
     const err = error as Error;
     res.status(400).json(err.message);
@@ -64,9 +64,11 @@ export const updateBudgetController = async (req: Request, res: Response) => {
 
 export const deleteBudgetController = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const { budgetId } = req.params;
 
-    res.status(200).json(await deleteBudget(Number(id)));
+    await deleteBudget(Number(budgetId));
+
+    res.status(200).json("Presupuesto eliminado");
   } catch (error) {
     const err = error as Error;
     res.status(400).json(err.message);

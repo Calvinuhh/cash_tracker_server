@@ -7,6 +7,7 @@ import {
   BelongsTo,
   ForeignKey,
 } from "sequelize-typescript";
+
 import Expense from "./Expense";
 
 @Table({

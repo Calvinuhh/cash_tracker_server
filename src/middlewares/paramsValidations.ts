@@ -6,9 +6,28 @@ export const validateBudgetId = (
   next: NextFunction
 ) => {
   try {
-    const { id } = req.params;
+    const { budgetId } = req.params;
 
-    if (isNaN(parseInt(id))) throw Error("El ID debe ser un número");
+    if (isNaN(parseInt(budgetId)))
+      throw Error("El ID del presupuesto debe ser un número");
+
+    next();
+  } catch (error) {
+    const err = error as Error;
+    res.status(400).json(err.message);
+  }
+};
+
+export const validateExpenseId = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { expenseId } = req.params;
+
+    if (isNaN(parseInt(expenseId)))
+      throw Error("El ID del gasto debe ser un número");
 
     next();
   } catch (error) {

@@ -6,8 +6,6 @@ export default interface BudgetModel {
   updatedAt: Date;
 }
 
-export type IBudget = Omit<BudgetModel, "createdAt" | "updatedAt">;
+export type CreateBudget = Pick<BudgetModel, "name" | "amount">;
 
-export type CreateBudget = Omit<IBudget, "id">;
-
-export type UpdateBudgetBody = Pick<IBudget, "name" | "amount">;
+export type UpdateBudgetType = Omit<BudgetModel, "createdAt" | "updatedAt">;
